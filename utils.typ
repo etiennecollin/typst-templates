@@ -31,25 +31,28 @@
 // =============================================================================
 // Custom functions
 // =============================================================================
+
 #let box-colors = (
-  default: (stroke: luma(70), fill: white, title: white), red: (stroke: rgb("#8C441A"), fill: rgb("#f9f6f4"), title: rgb("#633012")), lightred: (stroke: rgb("#8C441A"), fill: rgb("#fefdfd"), title: rgb("#633012")), green: (stroke: rgb("#458933"), fill: rgb("#f6f9f5"), title: rgb("#316124")), blue: (stroke: rgb("#00007B"), fill: rgb("#f2f2f8"), title: rgb("#000055")), lightblue: (stroke: rgb("#00007B"), fill: rgb("#fcfcfe"), title: rgb("#000055")),
+  default: (stroke: luma(70), fill: white, title: white), red: (stroke: rgb("#8C441A"), fill: rgb("#f9f6f4"), title: rgb("#633012")), lightred: (stroke: rgb("#8C441A"), fill: rgb("#fefdfd"), title: rgb("#633012")), green: (stroke: rgb("#458933"), fill: rgb("#f6f9f5"), title: rgb("#316124")), blue: (stroke: rgb("#00007B"), fill: rgb("#f2f2f8"), title: rgb("#000055")), lightblue: (stroke: rgb("#00007B"), fill: rgb("#fcfcfe"), title: rgb("#000055")), error: (stroke: black, fill: red, title: black),
 )
 
-#let colorbox(title: none, color: "default", radius: 2pt, width: auto, body) = {
+#let colorbox(title: none, color: "default", width: 100%, body) = {
   let color = box-colors.at(color)
 
   return block(
-    fill: color.fill, stroke: (left: 2pt + color.stroke, rest: 2pt + color.fill), radius: radius, width: width,
+    fill: color.fill, stroke: (left: 2pt + color.stroke, rest: 2pt + color.fill), radius: 2pt, width: width, inset: 8pt,
   )[
-    #block(inset: 8pt, width: 100%)[
-      #if title != none [
-        #text(fill: color.title, weight: "bold")[#title.]
-      ]
-      #body
+    #if title != none [
+      #text(fill: color.title, weight: "bold")[#title.]
+    ]
+    #body
+    #if title == translation("proof") [
+      #align(right)[QED]
     ]
   ]
 }
 
+#let todo(body) = [ #colorbox(title: "TODO", color: "error", body) ]
 #let definition(body) = [ #colorbox(title: translation("definition"), color: "green", body) ]
 #let example(body) = [ #colorbox(title: translation("example"), color: "blue", body) ]
 #let problem(body) = [ #colorbox(title: translation("problem"), color: "blue", body) ]
