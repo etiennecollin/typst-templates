@@ -26,9 +26,12 @@
     v(0.5em)
     strong(it)
   }
-
-  // Box around code blocks
-  show raw.where(block: true): block.with(fill: luma(240), inset: 8pt, radius: 4pt)
+  
+  // Box around code blocks and remove justification
+  show raw.where(block: true): it => {
+    set par(justify: false)
+    block(fill: luma(240), inset: 8pt, radius: 4pt, width: 100%)[#it]
+  }
 
   // ===========================================================================
   // Utils
