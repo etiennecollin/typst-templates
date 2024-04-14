@@ -67,3 +67,8 @@
 #let note(body) = [ #colorbox(title: translation("note"), color: "blue", body) ]
 #let solution(body) = [ #colorbox(title: translation("solution"), color: "blue", body) ]
 #let fact(body) = [ #colorbox(title: translation("fact"), color: "blue", body) ]
+
+#let sfrac(numerator, denominator) = {
+  $attach("/", tl: numerator, br: denominator)$
+}
+
