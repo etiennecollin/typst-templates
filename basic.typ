@@ -26,7 +26,7 @@
     v(0.5em)
     strong(it)
   }
-  
+
   // Box around code blocks and remove justification
   show raw.where(block: true): it => {
     set par(justify: false)
@@ -91,6 +91,7 @@
   // Setup header with title page
   // ===========================================================================
   if titlepage {
+    set text(size: 12pt)
     v(1fr)
 
     align(center)[
@@ -177,6 +178,7 @@
     ]
 
     v(1.5fr)
+    set text(size: fontsize)
     pagebreak()
     counter(page).update(1)
     // =========================================================================
