@@ -36,7 +36,7 @@
   // ===========================================================================
   // Utils
   // ===========================================================================
-  // Properly formatthe path to a file
+  // Properly format the path to a file
   let get-correct-path(text-path) = { return text-path.replace("\~", "~").replace("\_", "_") }
 
   // ===========================================================================
@@ -50,15 +50,17 @@
         #let left-content = if showdate { [#datetime.today().display("[year]/[month]/[day]")] } else { none }
 
         #grid(
-          columns: (1fr, 1fr, 1fr), inset: 0.5em, align(left, left-content), align(center, title), align(right, [#authors.at(0).name | #authors.at(0).id]), grid.hline(),
+          columns: (1fr, 2fr, 1fr), inset: 0.5em, align(left, left-content), align(center, title), align(right, [#authors.at(0).name | #authors.at(0).id]), grid.hline(),
         )
       ]
     ], footer: context[
       #if counter(page).get().first() > 1 [
-        #let left-content = if class.instructor != none { align(left)[#text(size: 0.9em)[#class.instructor]] } else { none }
+        #let left-content = if class.instructor != none { align(left)[#par(justify: false)[#text(size: 0.9em)[#class.instructor]]] } else { none }
         #let center-content = counter(page).display(lang-map().numbering, both: true)
         #let right-content = locate(
-          loc => [
+          loc => par(
+            justify: false,
+          )[
             // Find first heading of level 1 on current page
             #let first-heading = query(heading.where(level: 1), loc).find(h => h.location().page() == loc.page())
             // Find last heading of level 1 from the current page
@@ -81,7 +83,7 @@
         )
 
         #grid(
-          columns: (1fr, 1fr, 1fr), inset: 0.5em, grid.hline(), align(left, left-content), align(center, center-content), align(right, right-content),
+          columns: (2fr, 1fr, 2fr), inset: 0.5em, grid.hline(), align(left, left-content), align(center, center-content), align(right, right-content),
         )
       ]
     ],
