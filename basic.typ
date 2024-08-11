@@ -286,7 +286,7 @@
     block(inset: 2em)[
       #text(weight: "semibold")[#translation("abstract")]
       #h(1em)
-      #eval(to-string[#abstract], mode: "markup")
+      #abstract
     ]
     if titlepage or not toc {
       pagebreak()
