@@ -5,7 +5,7 @@
 // Document setup
 // =============================================================================
 #let article(
-  title: none, subtitle: none, abstract: none, authors: none, class: none, institution: none, duedate: none, logo: none, bib: none, bibstyle: "ieee", toc: false, titlepage: false, showdate: false, cols: 1, indent-first-line: true, margin: (x: 1in, y: 1in), paper: "us-letter", lang: "en", region: "CA", fonts: (), fontsize: 12pt, sectionnumbering: "1.1.a.", doc,
+  title: none, subtitle: none, abstract: none, authors: none, supervisors: none, class: none, institution: none, duedate: none, logo: none, bib: none, bibstyle: "ieee", toc: false, titlepage: false, showdate: false, cols: 1, indent-first-line: true, margin: (x: 1in, y: 1in), paper: "us-letter", lang: "en", region: "CA", fonts: (), fontsize: 12pt, sectionnumbering: "1.1.a.", doc,
 ) = {
   // ===========================================================================
   // Setup components
@@ -121,8 +121,10 @@
             text(size: 1.2em)[#author.id]
             linebreak()
           }
-          #if author.affiliation != none {
-            smallcaps(text(size: 1.1em)[#author.affiliation])
+          #if author.affiliations != none {
+            for affiliation in author.affiliations [
+              #smallcaps(text(size: 1.1em)[#affiliation]),
+            ]
             linebreak()
           }
           #if author.email != none {
@@ -131,6 +133,19 @@
         ]),
       )
     }
+
+    v(0.6fr)
+
+    align(center)[
+      #if supervisors != none {
+        smallcaps(text(size: 1.3em)[#translation("supervision")])
+        linebreak()
+        for supervisor in supervisors [
+          #smallcaps(text(size: 1.1em)[#supervisor])
+          #linebreak()
+        ]
+      }
+    ]
 
     v(0.6fr)
 
@@ -146,7 +161,7 @@
       }
     ]
 
-    v(0.5fr)
+    v(0.3fr)
 
     align(center)[
       #if class.section != none {
@@ -216,7 +231,9 @@
         #grid(
           columns: (1fr,) * ncols, row-gutter: 1.7em, ..authors.map(author => align(center)[
             #smallcaps(text(size: 1.45em)[#author.name]) \
-            #smallcaps(text(size: 1.1em)[#author.affiliation]) \
+            #for affiliation in author.affiliations [
+              #smallcaps(text(size: 1.1em)[#affiliation]),
+            ] \
             #smallcaps(text(size: 1.1em)[#author.email])
           ]),
         )
@@ -224,25 +241,41 @@
     }
 
     align(center)[
-      #if class != none {
-        smallcaps(text(size: 1.2em)[Section #class.section])
-        linebreak()
-      }
-      #if class.instructor != none {
-        smallcaps(text(size: 1.2em)[#class.instructor])
-      }
+      #block(inset: 0.5em)[
+        #if supervisors != none {
+          smallcaps(text(size: 1.3em)[#translation("supervision")])
+          linebreak()
 
-      #if institution != none {
-        smallcaps(text(size: 1.2em)[#institution])
-        linebreak()
-      }
-      #if class.semester != none {
-        text(size: 1.2em)[#class.semester]
-        linebreak()
-      }
-      #if duedate != none {
-        text(size: 0.9em)[#duedate]
-      }
+          for supervisor in supervisors [
+            #smallcaps(text(size: 1.1em)[#supervisor])
+            #linebreak()
+          ]
+        }
+      ]
+    ]
+
+    align(center)[
+      #block(inset: 0.5em)[
+        #if class != none {
+          smallcaps(text(size: 1.2em)[Section #class.section])
+          linebreak()
+        }
+        #if class.instructor != none {
+          smallcaps(text(size: 1.2em)[#class.instructor])
+        }
+
+        #if institution != none {
+          smallcaps(text(size: 1.2em)[#institution])
+          linebreak()
+        }
+        #if class.semester != none {
+          text(size: 1.2em)[#class.semester]
+          linebreak()
+        }
+        #if duedate != none {
+          text(size: 0.9em)[#duedate]
+        }
+      ]
     ]
   }
 

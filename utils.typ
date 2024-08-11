@@ -17,11 +17,11 @@
 }
 #let lang-map() = if text.lang == "fr" {
   (
-    numbering: "1 sur 1", abstract: "Résumé", bib: "Bibliographie", definition: "Définition", example: "Exemple", problem: "Problème", proposition: "Proposition", theorem: "Théorem", explanation: "Explication", lemma: "Lemme", corollary: "Corollaire", remark: "Remarque", claim: "Assertion", proof: "Preuve", note: "Note", solution: "Solution", fact: "Fait",
+    numbering: "1 sur 1", abstract: "Résumé", bib: "Bibliographie", definition: "Définition", example: "Exemple", problem: "Problème", proposition: "Proposition", theorem: "Théorem", explanation: "Explication", lemma: "Lemme", corollary: "Corollaire", remark: "Remarque", claim: "Assertion", proof: "Preuve", note: "Note", solution: "Solution", fact: "Fait", supervision: "Sous la supervision de:",
   )
 } else {
   (
-    numbering: "1 of 1", abstract: "Abstract", bib: "References", definition: "Definition", example: "Example", problem: "Problem", proposition: "Proposition", theorem: "Theorem", explanation: "Explanation", lemma: "Lemma", corollary: "Corollary", remark: "Remark", claim: "Claim", proof: "Proof", note: "Note", solution: "Solution", fact: "Fact",
+    numbering: "1 of 1", abstract: "Abstract", bib: "References", definition: "Definition", example: "Example", problem: "Problem", proposition: "Proposition", theorem: "Theorem", explanation: "Explanation", lemma: "Lemma", corollary: "Corollary", remark: "Remark", claim: "Claim", proof: "Proof", note: "Note", solution: "Solution", fact: "Fact", supervision: "Under the supervision of:",
   )
 }
 
