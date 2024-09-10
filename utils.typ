@@ -17,11 +17,11 @@
 }
 #let lang-map() = if text.lang == "fr" {
   (
-    numbering: "1 sur 1", abstract: "Résumé", bib: "Bibliographie", definition: "Définition", example: "Exemple", problem: "Problème", proposition: "Proposition", theorem: "Théorem", explanation: "Explication", lemma: "Lemme", corollary: "Corollaire", remark: "Remarque", claim: "Assertion", proof: "Preuve", note: "Note", solution: "Solution", fact: "Fait", supervision: "Sous la supervision de:",
+    numbering: "1 sur 1", abstract: "Résumé", bib: "Bibliographie", definition: "Définition", example: "Exemple", problem: "Problème", proposition: "Proposition", theorem: "Théorème", explanation: "Explication", lemma: "Lemme", corollary: "Corollaire", remark: "Remarque", claim: "Assertion", proof: "Preuve", note: "Note", hint: "Indice", solution: "Solution", fact: "Fait", supervision: "Sous la supervision de:",
   )
 } else {
   (
-    numbering: "1 of 1", abstract: "Abstract", bib: "References", definition: "Definition", example: "Example", problem: "Problem", proposition: "Proposition", theorem: "Theorem", explanation: "Explanation", lemma: "Lemma", corollary: "Corollary", remark: "Remark", claim: "Claim", proof: "Proof", note: "Note", solution: "Solution", fact: "Fact", supervision: "Under the supervision of:",
+    numbering: "1 of 1", abstract: "Abstract", bib: "References", definition: "Definition", example: "Example", problem: "Problem", proposition: "Proposition", theorem: "Theorem", explanation: "Explanation", lemma: "Lemma", corollary: "Corollary", remark: "Remark", claim: "Claim", proof: "Proof", note: "Note", hint: "Hint", solution: "Solution", fact: "Fact", supervision: "Under the supervision of:",
   )
 }
 
@@ -65,7 +65,8 @@
 #let claim(body) = [ #colorbox(title: translation("claim"), color: "blue", body) ]
 #let proof(body) = [ #colorbox(title: translation("proof"), color: "lightred", body) ]
 #let note(body) = [ #colorbox(title: translation("note"), color: "blue", body) ]
-#let solution(body) = [ #colorbox(title: translation("solution"), color: "blue", body) ]
+#let hint(body) = [ #colorbox(title: translation("hint"), color: "lightblue", body) ]
+#let solution(body) = [ #colorbox(title: translation("solution"), color: "green", body) ]
 #let fact(body) = [ #colorbox(title: translation("fact"), color: "blue", body) ]
 
 #let sfrac(numerator, denominator) = {
