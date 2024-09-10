@@ -72,3 +72,5 @@
   $attach("/", tl: numerator, br: denominator)$
 }
 
+#let ket(x) = $|#x angle.r$
+
