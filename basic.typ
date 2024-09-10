@@ -36,6 +36,9 @@
   // Underline links
   show link: underline
 
+  // Make quote in blocks
+  set quote(block: true)
+
   // ===========================================================================
   // Utils
   // ===========================================================================
@@ -53,7 +56,7 @@
         #let left-content = if showdate { [#datetime.today().display("[year]/[month]/[day]")] } else { none }
 
         #grid(
-          columns: (1fr, 2fr, 1fr), inset: 0.5em, align(left, left-content), align(center, title), align(right, [#authors.at(0).name | #authors.at(0).id]), grid.hline(),
+          columns: (1fr, 2fr, 1fr), inset: 0.5em, align(left, left-content), align(center, title), align(right, authors.at(0).name), grid.hline(),
         )
       ]
     ], footer: context[
