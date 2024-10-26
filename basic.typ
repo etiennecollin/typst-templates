@@ -85,8 +85,6 @@
   // ===========================================================================
   // Setup page
   // ===========================================================================
-  let ht-first = state("page-first-section", [])
-  let ht-last = state("page-last-section", [])
   set page(
     paper: paper,
     margin: margin,
