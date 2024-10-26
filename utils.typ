@@ -169,6 +169,11 @@
     color: "lightblue",
     body,
   ) ]
+#let tldr(body) = [ #colorbox(
+    title: "TLDR",
+    color: "lightblue",
+    body,
+  ) ]
 #let hint(body) = [ #colorbox(
     title: translation("hint"),
     color: "lightblue",

@@ -34,17 +34,17 @@
   // Setup components
   // ===========================================================================
   // Set par first-line-indent if needed
-  show par: set block(spacing: if indent-first-line {
-    0.65em
-  } else {
-    1em
-  })
   set par(
     justify: true,
     first-line-indent: if indent-first-line {
       1.5em
     } else {
       0em
+    },
+    spacing: if indent-first-line {
+      0.65em
+    } else {
+      1em
     },
   )
 
@@ -90,66 +90,56 @@
   set page(
     paper: paper,
     margin: margin,
-    header: context [
-      #if counter(page).get().first() > 1 [
-        #let left-content = if showdate {
+    header: context {
+      if counter(page).get().first() > 1 {
+        let left-content = if showdate {
           [#datetime.today().display("[year]/[month]/[day]")]
         } else {
           none
         }
 
-        #grid(
-          columns: (1fr, 2fr, 1fr), inset: 0.5em, align(
-            left,
-            left-content,
-          ), align(center, title), align(
-            right,
-            authors.at(0).name,
-          ), grid.hline(),
+        grid(
+          columns: (1fr, 2fr, 1fr), inset: 0.5em,
+          align(left, left-content),
+          align(center, title),
+          align(right, authors.at(0).name),
+          grid.hline(),
         )
-      ]
-    ],
-    footer: context [
-      #if counter(page).get().first() > 1 [
-        #let left-content = if class.instructor != none {
+      }
+    },
+    footer: context {
+      if counter(page).get().first() > 1 {
+        let left-content = if class.instructor != none {
           align(left)[#par(justify: false)[#text(size: 0.9em)[#class.instructor]]]
         } else {
           none
         }
-        #let center-content = counter(page).display(
+
+        let center-content = counter(page).display(
           lang-map().numbering,
           both: true,
         )
-        #let right-content = locate(loc => par(justify: false)[
-          // Find first heading of level 1 on current page
-          #let first-heading = query(heading.where(level: 1), loc).find(h => (
-            h.location().page() == loc.page()
-          ))
-          // Find last heading of level 1 from the current page
-          #let last-heading = query(
-            heading.where(level: 1),
-            loc,
-          ).rev().find(h => h.location().page() == loc.page())
-          // Check if there is a new heading on the current page
-          #{
-            if not first-heading == none {
-              ht-first.update([ #counter(heading).at(first-heading.location()).at(0): #first-heading.body ])
-              ht-last.update([ #counter(heading).at(last-heading.location()).at(0): #last-heading.body ])
-              align(right, text(size: 0.9em)[Section #ht-first.display()])
-            } else {
-              align(right, text(size: 0.9em)[Section #ht-last.display()])
-            }
-          }
-        ])
 
-        #grid(
-          columns: (2fr, 1fr, 2fr), inset: 0.5em, grid.hline(), align(
-            left,
-            left-content,
-          ), align(center, center-content), align(right, right-content),
+        let right-content = {
+          let previous-header = query(heading.where(level: 1).before(
+              here(),
+            )).last()
+          let number = counter(heading).get().first()
+          align(
+            right,
+            text(size: 0.9em)[Section #number: #previous-header.body],
+          )
+        }
+
+        grid(
+          columns: (2fr, 1fr, 2fr), inset: 0.5em,
+          grid.hline(),
+          align(left, left-content),
+          align(center, center-content),
+          align(right, right-content),
         )
-      ]
-    ],
+      }
+    },
   )
 
   // ===========================================================================
@@ -175,8 +165,7 @@
       let count = authors.len()
       let ncols = calc.min(count, 2)
       grid(
-        columns: (1fr) * ncols,
-        row-gutter: 1.5em,
+        columns: (1fr,) * ncols, row-gutter: 1.5em,
         ..authors.map(author => align(center)[
           #if author.name != none {
             smallcaps(text(size: 1.45em)[#author.name])
@@ -291,9 +280,8 @@
       let ncols = calc.min(count, 2)
       block(inset: 0.5em)[
         #grid(
-          columns: (1fr) * ncols,
-          row-gutter: 1.7em,
-          ..authors.map(author => align(center)[
+          columns: (1fr,) * ncols,
+          row-gutter: 1.7em, ..authors.map(author => align(center)[
             #smallcaps(text(size: 1.45em)[#author.name]) \
             #for affiliation in author.affiliations [
               #smallcaps(text(size: 1.1em)[#affiliation]),
@@ -381,3 +369,4 @@
     bibliography(bib, title: translation("bib"), style: bibstyle)
   }
 }
+
