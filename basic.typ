@@ -50,7 +50,7 @@
 
   // Set the language, region, font, fontsize and heading numbering
   set text(lang: lang, region: region, font: fonts, size: fontsize)
-  set heading(numbering: sectionnumbering)
+  set heading(numbering: sectionnumbering, supplement: translation("section"))
 
   // Make level 1 headings in toc bold and add vertical space
   show outline: set par(justify: true, first-line-indent: 0em)
@@ -125,7 +125,7 @@
           let number = counter(heading).get().first()
           align(
             right,
-            text(size: 0.9em)[Section #number: #previous-header.body],
+            text(size: 0.9em)[#translation("section") #number: #previous-header.body],
           )
         }
 
