@@ -21,6 +21,7 @@
   showdate: false,
   cols: 1,
   indent-first-line: true,
+  line-numbering: false,
   margin: (x: 1in, y: 1in),
   paper: "us-letter",
   lang: "en",
@@ -47,6 +48,13 @@
       1em
     },
   )
+
+  // Set line numbering if needed
+  set par.line(numbering: if line-numbering {
+    "1"
+  } else {
+    none
+  })
 
   // Set the language, region, font, fontsize and heading numbering
   set text(lang: lang, region: region, font: fonts, size: fontsize)
