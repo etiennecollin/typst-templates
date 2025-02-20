@@ -212,6 +212,7 @@
 }
 
 #let ket(x) = $lr(|#x angle.r, size: #110%)$
+#let bra(x) = $lr(angle.l #x|, size: #110%)$
 
 #let bmat(..body) = {
   math.mat(delim: "[", ..body)
