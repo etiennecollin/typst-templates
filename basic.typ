@@ -37,11 +37,14 @@
   // Set par first-line-indent if needed
   set par(
     justify: true,
-    first-line-indent: if indent-first-line {
-      1.5em
-    } else {
-      0em
-    },
+    first-line-indent: (
+      all: true,
+      amount: if indent-first-line {
+        1.5em
+      } else {
+        0em
+      },
+    ),
     spacing: if indent-first-line {
       0.65em
     } else {
@@ -50,11 +53,13 @@
   )
 
   // Set line numbering if needed
-  set par.line(numbering: if line-numbering {
-    "1"
-  } else {
-    none
-  })
+  set par.line(
+    numbering: if line-numbering {
+      "1"
+    } else {
+      none
+    },
+  )
 
   // Set the language, region, font, fontsize and heading numbering
   set text(lang: lang, region: region, font: fonts, size: fontsize)
@@ -116,7 +121,9 @@
     footer: context {
       if counter(page).get().first() > 1 {
         let left-content = if class.instructor != none {
-          align(left)[#par(justify: false)[#text(size: 0.9em)[#class.instructor]]]
+          align(left)[#par(justify: false)[#text(
+                size: 0.9em,
+              )[#class.instructor]]]
         } else {
           none
         }
@@ -127,13 +134,15 @@
         )
 
         let right-content = {
-          let previous-header = query(heading.where(level: 1).before(
-              here(),
-            )).last()
+          let previous-header = query(
+            heading.where(level: 1).before(here()),
+          ).last()
           let number = counter(heading).get().first()
           align(
             right,
-            text(size: 0.9em)[#translation("section") #number: #previous-header.body],
+            text(
+              size: 0.9em,
+            )[#translation("section") #number: #previous-header.body],
           )
         }
 
