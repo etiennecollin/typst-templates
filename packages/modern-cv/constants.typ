@@ -33,11 +33,6 @@
     content: author => box[#text(author.birth)],
   ),
   (
-    id: "birth",
-    icon: birth-icon,
-    content: author => box[#text(author.birth)],
-  ),
-  (
     id: "phone",
     icon: phone-icon,
     content: author => box[#text(author.phone)],
