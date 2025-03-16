@@ -18,7 +18,7 @@
   author: (:),
   profile-picture: image,
   profile-picture-position: left,
-  date: datetime.today().display("[month repr:long] [day], [year]"),
+  date: datetime.today().display(),
   accent-color: default-accent-color,
   colored-headers: true,
   colored-name: true,
