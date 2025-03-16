@@ -1,0 +1,23 @@
+[conf]
+default-lang = "en"
+
+[lang.en]
+attached = "Attached"
+cover-letter = "Cover Letter"
+curriculum-vitae = "Curriculum Vitae"
+dear = "Dear"
+letter-position-pretext = "Job Application for"
+of = "of"
+resume = "Resume"
+sincerely = "Sincerely"
+
+[lang.fr]
+attached = "Ci-joint"
+cover-letter = "Lettre de motivation"
+curriculum-vitae = "Curriculum Vitae"
+dear = "Cher/Chère"
+letter-position-pretext = "Demande d'emploi pour"
+of = "de"
+resume = "Curriculum Vitae"
+sincerely = "Sincèrement"
+
