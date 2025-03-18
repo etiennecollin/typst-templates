@@ -140,50 +140,13 @@
 /// - addressee (string): The person you are addressing the letter to
 /// - dear (string): optional field for redefining the "dear" variable
 #let coverletter-heading(
-  entity-target: "",
-  entity-name: "",
-  entity-street-address: "",
-  entity-city: "",
+  entity,
+  job-position,
+  addressee,
   date: datetime.today().display(),
-  job-position: "",
-  addressee: "",
   dear: "",
 ) = {
   set-database(toml("lang.toml"))
-
-  let sections = ()
-
-  if (
-    entity-target != ""
-      or entity-name != ""
-      or entity-street-address != ""
-      or entity-city != ""
-  ) {
-    assert(
-      entity-target != ""
-        and entity-name != ""
-        and entity-street-address != ""
-        and entity-city != "",
-      message: "All fields of the entity must be filled.",
-    )
-    sections.push([
-      #set par(leading: 1em)
-      #pad(top: 0.4em)[
-        #grid(
-          columns: (1fr, auto),
-          align: (left, right),
-          text(weight: "bold", size: 12pt)[#entity-target],
-          text(weight: "light", style: "italic", size: 9pt)[#date],
-        )
-        #text(weight: "regular", fill: color-gray, size: 9pt)[
-          #smallcaps[#entity-name] \
-          #entity-street-address \
-          #entity-city \
-        ]
-      ]
-    ])
-  }
-
 
   let dear-content = if dear == "" [
     #linguify("dear")
@@ -191,29 +154,30 @@
     #dear
   ]
 
-  if job-position != "" or addressee != "" {
-    assert(
-      job-position != "" and addressee != "",
-      message: "Both job-position and addressee must be filled.",
+  block()[
+    #box(width: 1fr, line(length: 100%))
+    #grid(
+      columns: (1fr, auto),
+      align: (left, right),
+      [= #linguify("letter-position-pretext") #job-position],
+      text(
+        weight: "regular",
+        style: "italic",
+        fill: color-gray,
+        size: 10pt,
+      )[#date],
     )
-    sections.push(
-      block()[
-        = #linguify("letter-position-pretext") #job-position \
-        == #dear-content #addressee \
-      ],
-    )
-  }
-
-  box(width: 1fr, line(length: 100%))
-  sections.join(box(width: 1fr, line(length: 100%)))
-  box(width: 1fr, line(length: 100%))
+    === #entity \
+    == #dear-content #addressee \
+    #box(width: 1fr, line(length: 100%))
+  ]
 }
 
 /// Cover letter content paragraph. This is the main content of the cover letter.
 /// - content (content): The content of the cover letter
 #let coverletter-content(content) = {
   pad(top: 0.4em)[
-    #set par(first-line-indent: 3em)
+    #set par(first-line-indent: 1em)
     #set text(weight: "light")
     #content
   ]
