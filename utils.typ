@@ -115,97 +115,133 @@
 }
 
 #let todo(body) = [ #colorbox(title: "TODO", color: "error", body) ]
-#let definition(body) = [ #colorbox(
+#let definition(body) = [
+  #colorbox(
     title: translation("definition"),
     color: "green",
     body,
-  ) ]
-#let example(body) = [ #colorbox(
+  )
+]
+#let example(body) = [
+  #colorbox(
     title: translation("example"),
     color: "blue",
     body,
-  ) ]
-#let answer(body) = [ #colorbox(
+  )
+]
+#let answer(body) = [
+  #colorbox(
     title: translation("answer"),
     color: "green",
     body,
-  ) ]
-#let question(body) = [ #colorbox(
+  )
+]
+#let question(body) = [
+  #colorbox(
     title: translation("question"),
     color: "blue",
     body,
-  ) ]
-#let problem(body) = [ #colorbox(
+  )
+]
+#let problem(body) = [
+  #colorbox(
     title: translation("problem"),
     color: "blue",
     body,
-  ) ]
-#let proposition(body) = [ #colorbox(
+  )
+]
+#let proposition(body) = [
+  #colorbox(
     title: translation("proposition"),
     color: "red",
     body,
-  ) ]
-#let theorem(body) = [ #colorbox(
+  )
+]
+#let theorem(body) = [
+  #colorbox(
     title: translation("theorem"),
     color: "red",
     body,
-  ) ]
-#let explanation(body) = [ #colorbox(
+  )
+]
+#let explanation(body) = [
+  #colorbox(
     title: translation("explanation"),
     color: "lightblue",
     body,
-  ) ]
-#let lemma(body) = [ #colorbox(
+  )
+]
+#let lemma(body) = [
+  #colorbox(
     title: translation("lemma"),
     color: "red",
     body,
-  ) ]
-#let corollary(body) = [ #colorbox(
+  )
+]
+#let corollary(body) = [
+  #colorbox(
     title: translation("corollary"),
     color: "red",
     body,
-  ) ]
-#let remark(body) = [ #colorbox(
+  )
+]
+#let remark(body) = [
+  #colorbox(
     title: translation("remark"),
     color: "blue",
     body,
-  ) ]
-#let claim(body) = [ #colorbox(
+  )
+]
+#let claim(body) = [
+  #colorbox(
     title: translation("claim"),
     color: "blue",
     body,
-  ) ]
-#let proof(body) = [ #colorbox(
+  )
+]
+#let proof(body) = [
+  #colorbox(
     title: translation("proof"),
     color: "lightred",
     body,
-  ) ]
-#let note(body) = [ #colorbox(
+  )
+]
+#let note(body) = [
+  #colorbox(
     title: translation("note"),
     color: "lightblue",
     body,
-  ) ]
-#let tldr(body) = [ #colorbox(
+  )
+]
+#let tldr(body) = [
+  #colorbox(
     title: "TLDR",
     color: "lightblue",
     body,
-  ) ]
-#let hint(body) = [ #colorbox(
+  )
+]
+#let hint(body) = [
+  #colorbox(
     title: translation("hint"),
     color: "lightblue",
     body,
-  ) ]
-#let solution(body) = [ #colorbox(
+  )
+]
+#let solution(body) = [
+  #colorbox(
     title: translation("solution"),
     color: "green",
     body,
-  ) ]
+  )
+]
 #let fact(body) = [ #colorbox(title: translation("fact"), color: "blue", body) ]
-#let warning(body) = [ #colorbox(
+#let warning(body) = [
+  #colorbox(
     title: translation("warning"),
     color: "lightred",
     body,
-  ) ]
+  )
+]
 
 #let sfrac(numerator, denominator) = {
   math.attach("/", tl: numerator, br: denominator)
@@ -216,4 +252,135 @@
 
 #let bmat(..body) = {
   math.mat(delim: "[", ..body)
+}
+
+#let bdiagbox(
+  text_left,
+  text_right,
+  width: none,
+  height: none,
+  inset: 5pt,
+  text_pad: none,
+  box_stroke: none,
+  line_stroke: 1pt,
+  inner_width: none,
+  left_sep: 0pt,
+  right_sep: 0pt,
+  left_outer_sep: 0pt,
+  right_outer_sep: 0pt,
+) = context {
+  let left_measure = measure(text_left)
+  let right_measure = measure(text_right)
+
+  let text_pad = if text_pad == none {
+    // some adjusting; sum 3pt for the base case (5pt)
+    // for larger insets, it isn't very relevant
+    -2 * inset / 3 + 3pt
+  } else {
+    text_pad
+  }
+
+  let height = if height != none {
+    height
+  } else {
+    2 * (left_measure.height + right_measure.height)
+  }
+
+  let inner_width = if inner_width != none {
+    inner_width
+  } else if width != none {
+    width - 2 * inset
+  } else {
+    2 * calc.max(left_measure.width, right_measure.width)
+  }
+
+  box(width: inner_width, height: height, stroke: box_stroke)[
+    #show line: place.with(top + left)
+    #place(
+      top + right,
+      move(dx: -right_sep - text_pad, dy: text_pad, text_right),
+    )
+    #line(
+      start: (left_outer_sep - inset, -inset),
+      end: (inner_width + inset - right_outer_sep, height + inset),
+      stroke: line_stroke,
+    )
+    #place(
+      bottom + left,
+      move(dx: left_sep + text_pad, dy: -text_pad, text_left),
+    )
+  ]
+}
+
+#let tdiagbox(
+  text_left,
+  text_right,
+  width: none,
+  height: none,
+  inset: 5pt,
+  text_pad: none,
+  box_stroke: none,
+  line_stroke: 1pt,
+  inner_width: none,
+  left_sep: 0pt,
+  right_sep: 0pt,
+  left_outer_sep: 0pt,
+  right_outer_sep: 0pt,
+) = context {
+  let left_measure = measure(text_left)
+  let right_measure = measure(text_right)
+
+  let text_pad = if text_pad == none {
+    // some adjusting; sum 3pt for the base case (5pt)
+    // for larger insets, it isn't very relevant
+    -2 * inset / 3 + 3pt
+  } else {
+    text_pad
+  }
+
+  let height = if height != none {
+    height
+  } else {
+    2 * (left_measure.height + right_measure.height)
+  }
+
+  let inner_width = if inner_width != none {
+    inner_width
+  } else if width != none {
+    width - 2 * inset
+  } else {
+    2 * calc.max(left_measure.width, right_measure.width)
+  }
+
+  box(width: inner_width, height: height, stroke: box_stroke)[
+    #show line: place.with(top + left)
+    #place(top + left, move(dx: left_sep + text_pad, dy: text_pad, text_left))
+    #line(
+      start: (left_outer_sep - inset, height + inset),
+      end: (inner_width + inset - right_outer_sep, -inset),
+      stroke: line_stroke,
+    )
+    #place(
+      bottom + right,
+      move(dx: -right_sep - text_pad, dy: -text_pad, text_right),
+    )
+  ]
+}
+
+// Hide content and prevent disrupting placement
+#let true-hide = body => hide(
+  place(
+    center,
+    float: false,
+    body,
+  ),
+)
+
+// Add citation to bibliography without ref
+#let nocite = (..args) => true-hide(cite(..args))
+
+// Add citations in block to bibliography without ref
+#let nocite-block(body) = {
+  show cite: it => true-hide(it)
+  body
 }
