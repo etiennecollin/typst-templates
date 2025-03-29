@@ -38,7 +38,7 @@
   set par(
     justify: true,
     first-line-indent: (
-      all: true,
+      all: false,
       amount: if indent-first-line {
         1.5em
       } else {
