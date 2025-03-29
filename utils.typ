@@ -254,6 +254,11 @@
   math.mat(delim: "[", ..body)
 }
 
+#let scr(it) = text(
+  features: ("ss01",),
+  box($cal(it)$),
+)
+
 #let bdiagbox(
   text_left,
   text_right,
