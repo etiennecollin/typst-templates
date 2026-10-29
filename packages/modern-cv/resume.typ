@@ -1,4 +1,4 @@
-#import "@preview/linguify:0.4.1": *
+#import "@preview/linguify:0.5.0": *
 #import "./constants.typ": *
 #import "./utils.typ": *
 
@@ -60,11 +60,11 @@
     paper: paper-size,
     margin: (left: 15mm, right: 15mm, top: 10mm, bottom: 10mm),
     footer: if show-footer [#__footer(
-        author,
-        language,
-        date,
-        linguify("resume"),
-      )] else [],
+      author,
+      language,
+      date,
+      linguify("resume"),
+    )] else [],
   )
 
   set par(
